@@ -1,0 +1,9 @@
+#comment_box {
+    word-break: break-all;
+}
+
+.share_button {
+    border: none;
+    background: none;
+    padding: 0;
+}

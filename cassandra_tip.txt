@@ -1,0 +1,29 @@
+// Config
+
+'cassandra' => [
+		'keySpace' => 'haynhucnhoi',
+		'host'     => '127.0.0.1',
+		'port'     => 9042, //default 9042
+		'username' => 'cassandra',
+		'password' => 'cassandra',
+
+	],
+	
+// Connection
+
+$di->setShared('cassandra', function () use ($config, $em, $di) {
+
+			$config = $config->cassandra;
+
+			$cluster = Cassandra::cluster()
+				->withContactPoints($config->host)
+				->withPort($config->port)
+				->withCredentials($config->username, $config->password)
+				->build();
+
+			$session = $cluster->connect($config->keySpace);        // create session, optionally scoped to a keyspace
+
+			return $session;
+
+		});
+
